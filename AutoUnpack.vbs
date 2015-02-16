@@ -86,6 +86,13 @@ Sub SourceDirectory (path, action)
 				if (InStr(FileExtension(Ubound(FileExtension)),"r") = 1) Then
 					'Msgbox "Deleted a rar file: " & strFileName
 					objShell_wscript.LogEvent 4, "Deleted file " & strFileName & " ( Not yet implemented, this is currently for information. ) "
+					On Error Resume Next
+					
+					'fso.DeleteFile(path & "\" & strFileName)
+					'If (Err.Number <> 0) Then
+					'	objShell_wscript.LogEvent 4, "Something went wrong when deleting the file: " &  chr(34) & path & "\" & strFileName & chr(34) & ". Error was: " & Err.Description
+					'End If
+					
 				End If
 			End If
 			
