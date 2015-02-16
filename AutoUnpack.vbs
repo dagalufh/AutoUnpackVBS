@@ -21,7 +21,14 @@ End If
 FoundDirectories = array()
 
 DirectoryFolder = fso.GetParentFolderName(WScript.ScriptFullName)
-PathToExtraction =  chr(34) & DirectoryFolder & "\Binary\unrar.exe " & chr(34) & "x -o+ -y %TARGETFILE% %TARGETPATH%" 
+Executable = DirectoryFolder & "\Binary\unrar.exe "
+PathToExtraction =  chr(34) & Executable & chr(34) & "x -o+ -y %TARGETFILE% %TARGETPATH%" 
+
+
+If Not fso.FileExists(Executable) Then
+	Msgbox "Unable to find Unrar.exe, it should be located: " & vbCrlf & Executable
+	WScript.Quit
+End If
 
 Sub SourceDirectory (path, action)
 	Set objFolder = objShell.Namespace(path)
