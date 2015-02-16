@@ -12,10 +12,13 @@ If (Wscript.Arguments.Count < 1) Then
 	Wscript.Quit
 End If
 SourceRoot = WScript.Arguments.Item(0)
-If (WScript.Arguments.Item(1) = DeleteAfter) Then
-	SecondArgument = True
-Else
-	SecondArgument = False
+SecondArgument = False
+
+
+If (Wscript.Arguments.Count > 1) Then
+	If (WScript.Arguments.Item(1) = DeleteAfter) Then
+		SecondArgument = True
+	End If
 End If
 
 FoundDirectories = array()
@@ -52,12 +55,12 @@ Sub SourceDirectory (path, action)
 			If (Action = "Unpack") Then
 				
 				if (instr(FileExtension(Ubound(FileExtension)-1),"part01")) and (FileExtension(Ubound(FileExtension)) = "rar") Then
-					Msgbox "A Part01.rar file. This can be unpacked." & "(" & strFileName & ")"
+					'Msgbox "A Part01.rar file. This can be unpacked." & "(" & strFileName & ")"
 					Found = True
 				End If
 				
 				if Not (instr(FileExtension(Ubound(FileExtension)-1),"part")) and (FileExtension(Ubound(FileExtension)) = "rar") Then
-					Msgbox "A file.rar file. This can be unpacked." & "(" & strFileName & ")"
+					'Msgbox "A file.rar file. This can be unpacked." & "(" & strFileName & ")"
 					Found = True
 				End If
 				
