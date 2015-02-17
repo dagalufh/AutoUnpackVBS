@@ -16,7 +16,7 @@ SecondArgument = False
 
 
 If (Wscript.Arguments.Count > 1) Then
-	If (WScript.Arguments.Item(1) = DeleteAfter) Then
+	If (WScript.Arguments.Item(1) = "DeleteAfter") Then
 		SecondArgument = True
 	End If
 End If
@@ -54,12 +54,12 @@ Sub SourceDirectory (path, action)
 			
 			If (Action = "Unpack") Then
 				
-				if (instr(FileExtension(Ubound(FileExtension)-1),"part01")) and (FileExtension(Ubound(FileExtension)) = "rar") Then
+				if ( (instr(FileExtension(Ubound(FileExtension)-1),"part1") = 1) or (instr(FileExtension(Ubound(FileExtension)-1),"part01") = 1) ) and (FileExtension(Ubound(FileExtension)) = "rar") Then
 					'Msgbox "A Part01.rar file. This can be unpacked." & "(" & strFileName & ")"
 					Found = True
 				End If
 				
-				if Not (instr(FileExtension(Ubound(FileExtension)-1),"part")) and (FileExtension(Ubound(FileExtension)) = "rar") Then
+				if Not (instr(FileExtension(Ubound(FileExtension)-1),"part") = 1) and (FileExtension(Ubound(FileExtension)) = "rar") Then
 					'Msgbox "A file.rar file. This can be unpacked." & "(" & strFileName & ")"
 					Found = True
 				End If
@@ -85,13 +85,15 @@ Sub SourceDirectory (path, action)
 			' Delete them!
 				if (InStr(FileExtension(Ubound(FileExtension)),"r") = 1) Then
 					'Msgbox "Deleted a rar file: " & strFileName
-					objShell_wscript.LogEvent 4, "Deleted file " & strFileName & " ( Not yet implemented, this is currently for information. ) "
+					
 					On Error Resume Next
 					
-					'fso.DeleteFile(path & "\" & strFileName)
-					'If (Err.Number <> 0) Then
-					'	objShell_wscript.LogEvent 4, "Something went wrong when deleting the file: " &  chr(34) & path & "\" & strFileName & chr(34) & ". Error was: " & Err.Description
-					'End If
+					fso.DeleteFile(path & "\" & strFileName)
+					If (Err.Number <> 0) Then
+						objShell_wscript.LogEvent 4, "Something went wrong when deleting the file: " &  chr(34) & path & "\" & strFileName & chr(34) & ". Error was: " & Err.Description
+					Else
+						objShell_wscript.LogEvent 4, "Deleted file " &  chr(34) & path & "\" & strFileName & chr(34)
+					End If
 					
 				End If
 			End If
