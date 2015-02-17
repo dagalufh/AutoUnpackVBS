@@ -101,7 +101,7 @@ Sub SourceDirectory (path, action)
 End Sub
 
 ' Start the search and unpacking...
-SourceDirectory "H:\Storage\Games\Shift.2.Unleashed-RELOADED", "Unpack"
+SourceDirectory SourceRoot, "Unpack"
 
 ' If user called this script with a second parameter, DeleteAfter, then we go through this and deletes all *.r* files.
 If SecondArgument Then
